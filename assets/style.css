@@ -1,0 +1,580 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    /* border: 1px solid black; */
+}
+
+/* ::-webkit-scrollbar{
+    display: none;
+} */
+
+body{
+    height: 100vh;
+    width: 100vw;
+}
+
+main {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+aside {
+    height: 100%;
+    width: 20%;
+    border-right: 1px solid #D9D9D9;
+    padding: 1.5rem 0.25rem 0.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+aside > div {
+    width: 90%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75rem;
+    background-color: #F4FAF5;
+    border-color: #D9D9D9;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    box-shadow:  0px 4px 4px -1px rgba(12, 12, 13, 0.1), 0px 4px 4px -1px rgba(12, 12, 13, 0.05);
+}
+
+aside h1 {
+    font-size: calc(1rem + 0.5vw);
+    font-weight: bold;
+    color: #EF9D06;
+}
+
+aside > div > div {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+aside h2 {
+    font-size: calc(1rem + 0.25vw);
+    font-weight: 600;
+    color: #1E1E1E;
+}
+
+#Workers {
+    width: 100%;
+    flex: 1;
+    max-height: 70vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.worker {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    gap: 0.5rem;
+    border: 1px dashed #33C100;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
+.workerAvatar {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.workerInfos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex: 1;
+  min-width: 0;
+}
+
+.workerInfos h3,
+.workerInfos p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.workerInfos h3 {
+    font-size: calc(0.5rem + 0.5vw);
+}
+
+.workerInfos p {
+    font-size: calc(0.5rem + 0.5vw);
+    color: #5F5F5F;
+    font-weight: 400;
+}
+
+aside > button {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+gap: 0.5rem;
+padding: 1rem;
+
+width: fit-content;
+height: fit-content;
+
+color: white;
+font-size: calc(0.5rem+0.5vw);
+
+background: #33C100;
+border-radius: 1rem;
+border: none;
+}
+
+aside > button > svg {
+    height: 1.5rem;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: fit-content;
+    background: #F4FAF5;
+    border-radius: 10px;
+    border: 1px solid grey;
+    overflow-x: hidden;
+    max-height: 95%;
+}
+
+#formLegend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 16px;
+}
+
+#formLegend > svg, .details > svg {
+    height: 30px;
+    width: fit-content;
+    border: 1px solid black;
+}
+
+#formLegend > p {
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    font-weight: 600;
+}
+
+form > div {
+    height: fit-content;
+    width: 100%;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+#formContent {
+    overflow-y: auto;
+}
+
+#avatarGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+#avatarGroup > img {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#avatarGroup > input {
+    width: 100%;
+    height: fit-content;
+}
+
+form > div > div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    width: 100%;
+}
+
+form > div > div > input {
+    padding: 8px 16px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+}
+
+form > div > div > select {
+    padding: 8px 8px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+}
+
+#otherRole {
+    display: none;
+}
+
+form > div > div > p {
+    color: #757575;
+    font-size: 14px;
+}
+
+/* Experience Form part */
+.experience {
+   width: 100%;
+   border: 8px;
+   padding: 8px;
+   border-radius: 10px;
+   background-color: #EADDFF;
+}
+
+.experience > div:first-child svg {
+    height: 25px;
+    color: white;
+}
+
+.experience > div {
+    width: 100%;
+}
+
+.experience > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.experience > div:first-child > div {
+    height: 35px;
+    width: 35px;
+    background-color: #E53935;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.experience > div:last-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.experience > div:last-child > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+.experience > div:last-child > div > input {
+    padding: 8px 16px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+}
+
+#addExp {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+    background-color: #EADDFF;
+    border-radius: 1rem;
+    border: none;
+    margin-bottom: 0.5rem;
+}
+
+#addExp:hover {
+    background-color: #33C100;
+}
+
+/* Form submit button */
+
+#save {
+    width: 90%;
+    height: fit-content;
+    padding: 1rem;
+    background-color: #EADDFF;
+    border-radius: 1rem;
+    border: none;
+    margin: 0.5rem auto;
+}
+
+#save:hover {
+    background-color: #33C100;
+}
+
+/* Details */
+
+.details {
+    width: 60%;
+    height: fit-content;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    row-gap: 0.5rem;
+    align-items: end;
+    background-color: white;
+    border-radius: 1rem;
+    overflow-y: auto;
+}
+
+.details * {
+    border: 1px solid black;
+}
+
+.avatarDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatarImg {
+    width: 15vh;
+    height: 15vh;
+    border-radius: 50%;
+}
+
+.avatarName {
+    width: fit-content;
+    font-weight: 500;
+    font-size: calc(0.5rem + 0.75vw);
+    text-transform: capitalize;
+}
+
+.Infos {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-auto-flow: column;
+    gap: 0.5rem;
+    justify-items: center;
+}
+
+.labels {
+    font-weight: 500;
+    font-size: calc(0.5rem + 0.65vw);
+    color: #33C100;
+}
+
+.values {
+    font-weight: 400;
+    font-size: calc(0.5rem + 0.5vw);
+}
+
+.expDetails {
+    width: 100%;
+    height: fit-content;
+    min-width: max-content;
+    display: grid;
+    gap: 0.5rem;
+    padding: 2%;
+    
+}
+
+.expLegend {
+    width: 100%;
+    height: fit-content;
+    font-weight: 600;
+    font-size: calc(0.5rem + 0.5vw);
+}
+
+.expDisp {
+    padding: 2%;
+    width: fit-content;
+    text-wrap: nowrap;
+    border: 1px dashed #33C100;
+    border-radius: 0.5rem;
+    font-weight: 400;
+    font-size: calc(0.5rem + 0.5vw);
+    text-transform: capitalize;
+}
+
+.periode {
+    background-color: #757575;
+    color: white;
+    font-weight: 500;
+    font-size: calc(0.5rem + 0.65vw);
+    padding: 1%;
+    width: fit-content;
+    height: fit-content;
+}
+
+/* Right section of the app */
+
+section {
+    background-color: #FAFAFA;
+    width: 80%;
+    height: 100%;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+}
+
+section h2 {
+    font-weight: bold;
+    font-size: 24px;
+    color: #33C100;
+}
+
+/* Graphical plan */
+
+#grid-container {
+    width: 100%;
+    height: 100%;
+    border: 3px solid black;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    background-color: #D9D9D9;
+}
+
+#grid-container > div {
+    flex-wrap: wrap;
+}
+
+#grid-container > div > svg {
+    color: #33C100;
+    height: 46px;
+    padding: 8px;
+}
+
+#grid-container > div > p {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px;
+}
+
+#reception {
+    border-width: 2px 2px 0 0;
+    border-style: solid;
+    border-color: black;
+    grid-row: 4/7;
+    grid-column: 1/3;
+    display: flex;
+    background-color: white;
+}
+
+#conference {
+    border-width: 0 2px 2px 0;
+    border-style: solid;
+    border-color: black;
+    grid-row: 1/3;
+    grid-column: 1/3;
+    display: flex;
+    background-color: white;
+}
+
+#archives {
+    border-width: 0 0 2px 2px;
+    border-style: solid;
+    border-color: black;
+    grid-row: 1/3;
+    grid-column: 4/5;
+    display: flex;
+    background-color: white;
+}
+
+#servers {
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    grid-row: 1/4;
+    grid-column: 5/6;
+    display: flex;
+    background-color: white;
+}
+
+#security {
+    border-top: 2px solid black;
+    grid-row: 5/7;
+    grid-column: 5/6;
+    display: flex;
+    background-color: white;
+}
+
+#staff {
+    border-width: 2px 2px 0 2px;
+    border-style: solid;
+    border-color: black;
+    grid-row: 5/7;
+    grid-column: 4/5;
+    display: flex;
+    background-color: white;
+
+}
+
+/* Worker in plan */
+
+.avatarX {
+    width: 3.5rem;
+    height: 3.5rem;
+    position: relative;
+}
+
+.X {
+    height: 1.75rem;
+    width: 1.75rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.avatar {
+    height: 3rem;
+    width: 3rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+}
+
+/* Alert box */
+#alert {
+    display: none;
+    padding: 1rem;
+    width: fit-content;
+    height: fit-content;
+
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1),
+            0 2px 4px -2px rgba(0,0,0,0.1);
+
+}
