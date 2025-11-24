@@ -567,3 +567,34 @@ form div:nth-of-type(3) button:hover {
     grid-column: 2/3;
     justify-self: end;
 }
+
+/* Worker in plan */
+
+.avatarX {
+    width: 4vw;
+    height: 4vw;
+    min-width: 3.5rem;
+    min-height: 3.5rem;
+    position: relative;
+}
+
+.X {
+    height: 1.5vw;
+    width: 1.5vw;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.avatar {
+    height: 3.75vw;
+    width: 3.75vw;
+    min-width: 3rem;
+    min-height: 3rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+}

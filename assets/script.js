@@ -359,3 +359,38 @@ function naturalBehave(liste){
     }));
 }
 
+// Assign staff feature
+Array.from(rooms).forEach(element => {
+   element.querySelector('svg').addEventListener('click', ()=>{
+    renderListeStaff(staff.filter(s=>{
+        let res = restrictions[s.role.replace(' ', '_')]||restrictions.other;
+        return !res.includes(element.id);
+    }).filter(s=>!s.assigned));
+    listStaff.querySelectorAll('.worker').forEach(worker=>worker.addEventListener('click', ()=>{
+        if(element.querySelectorAll('.avatarX').length < roomsCapacity[element.id]){
+            const container = document.createElement('div');
+            container.id = `worker${worker.id}`;
+            container.classList.add('avatarX');
+            container.innerHTML = `
+                <img class='avatar' src='${worker.querySelector('.workerAvatar').src}' alt='${worker.querySelector('.workerAvatar').alt}'>
+                <img class='X' onclick="unassignWorker(${worker.id})" src='images/Xcircle.png' alt='delete button'>
+            `;
+            element.appendChild(container);
+            // console.log(staff);
+            
+            staff[worker.id].assigned = true;
+            staff[worker.id].room = element.id;
+            // localStorage.setItem('staff', JSON.stringify(staff));
+        }else{
+            alertBox.innerText = `The ${element.id} room has reached its full capacity of ${roomsCapacity[element.id]} people`;
+            alertBox.style.backgroundColor = '#fee2e2';
+            alertBox.style.border = '1px solid #f87171';
+            alertBox.style.color = '#b91c1c';
+            alertBox.style.display = 'inline';
+            setTimeout(()=>{alertBox.style.display='none';},2000);
+        }
+        renderListeStaff(staff.filter(s=>!s.assigned));
+        naturalBehave(listStaff);
+    }));
+   });
+});
