@@ -141,6 +141,66 @@
                 </div>
             </div>
         </section>
+        <!-- Form -->
+        <div id="formContainer" class="overlay">
+            <form>
+                <div id="formLegend">
+                    <p id="formTitle"></p>
+                    <svg id="closeForm" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier"> 
+                            <defs> 
+                                <style>.cls-1{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style> 
+                            </defs> 
+                            <title></title> 
+                            <g id="cross"> 
+                                <line class="cls-1" x1="7" x2="25" y1="7" y2="25"></line> 
+                                <line class="cls-1" x1="7" x2="25" y1="25" y2="7"></line> 
+                            </g> 
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <div id="avatarGroup">
+                        <img src="images/Generic avatar.png" alt="Personal photo" id="formAvatar">
+                        <input type="text" name="photo" id="photo" placeholder="Enter a valid url">
+                    </div>
+                    <div>
+                        <label for="fullName">Full name</label>
+                        <input type="text" name="fullName" id="fullName" placeholder="First name Last name">
+                    </div>
+                    <div>
+                        <label for="role">Role</label>
+                        <select name="role" id="role" placeholder="Your role">
+                            <option value="" selected disabled>Your role</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Receptionist">Receptionist</option>
+                            <option value="IT_Technician">IT Technician</option>
+                            <option value="Security_guard">Security guard</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="other">Other roles</option>
+                        </select>
+                        <input type="text" name="otherRole" id="otherRole">
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" placeholder="exemple@exemple.com">
+                    </div>
+                    <div>
+                        <label for="mobile">Mobile</label>
+                        <input type="text" name="mobile" id="mobile" placeholder="+212xxxxxxxxx">
+                    </div>
+                    <!-- experices form -->
+                    <div id="experiences"></div>
+                </div>
+                <div>
+                    <button id="addExp">Add work experience</button>
+                    <button id="save">Save</button>
+                </div>
+            </form>
+        </div>
+        <div id="alert"></div>
     </main>
     <script src="script.js"></script>
 </body>

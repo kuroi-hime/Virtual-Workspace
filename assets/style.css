@@ -214,3 +214,167 @@ section h2 {
     grid-row: 8/13;
     grid-column: 6/9;
 }
+
+/* Add new worker feature */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    height: fit-content;
+    background: #F4FAF5;
+    border-radius: 0.5rem;
+    border: 1px solid grey;
+    overflow-x: hidden;
+    max-height: 95%;
+}
+
+#formLegend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+}
+
+#formLegend > svg, .details > svg, .experience svg {
+    height: 2rem;
+    width: fit-content;
+    color: white;
+}
+
+#formLegend > p {
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    font-weight: 600;
+}
+
+form > div:nth-of-type(2) {
+    height: fit-content;
+    width: 100%;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    overflow-y: auto;
+}
+
+#avatarGroup {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+form > div > div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    width: 100%;
+}
+
+form img {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+form label {
+    font-size: calc(14px + 0.1vw);
+}
+
+form input, select {
+    flex: 1;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #D9D9D9;
+    height: fit-content;
+}
+
+#otherRole {
+    display: none;
+}
+
+form > div:nth-of-type(3) {
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+form div:nth-of-type(3) button {
+    width: 40%;
+    height: fit-content;
+    padding: 0.5rem;
+    font-size: calc(14px + 0.25vw);
+    font-weight: 500;
+    background-color: #EADDFF;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+form div:nth-of-type(3) button:hover {
+    background-color: #33C100;
+    color: white;
+}
+/* Experience Form part */
+.experience {
+   width: 100%;
+   border-radius: 0.5rem;
+   padding: 0.5rem;
+   background-color: #EADDFF;
+   display: flex;
+   flex-direction: column;
+   row-gap: 1rem;
+}
+
+.experience > div:first-child {
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.experience > div:first-child > div {
+    height: fit-content;
+    width: fit-content;
+    padding: 0.25rem 0.5rem;
+    background-color: #E53935;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+}
+
+.experience > div:last-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.experience > div:last-child > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+

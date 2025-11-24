@@ -2,6 +2,23 @@
 const staff = JSON.parse(localStorage.getItem('staff'))||[];
 const listStaff = document.getElementById('Workers');
 
+// Alert feature variables
+let alertBox = document.getElementById('alert');
+
+// Add new worker feature variables
+const staffPlus = document.getElementById('addWorker');
+let maxId = staff.length;
+
+// Form feature variables
+const title = document.getElementById('formTitle');
+const legend = document.getElementById('formLegend');
+const formContainer = document.getElementById('formContainer');
+const btnClose = document.getElementById('closeForm');
+let counterExp;
+const addExperience = document.getElementById('addExp');
+const experiences = document.getElementById('experiences');
+const saveStaff = document.getElementById('save');
+
 // App Initialisation
 function StaffTemplate(s){
     return `
@@ -36,3 +53,68 @@ function renderListeStaff(liste){
 }
 
 renderListeStaff(staff.filter(s=>!s.assigned));
+
+// Add staff feature
+staffPlus.addEventListener('click', ()=>{
+    counterExp = 0;
+    title.innerText = 'Add new worker';
+    legend.style.backgroundColor = '#33C100';
+    formContainer.style.display = 'flex';
+    experiences.innerHTML = '';
+});
+
+btnClose.addEventListener('click', ()=>{
+    formContainer.style.display = 'none';
+});
+
+// Add staff feature -> dynamique experiences form
+function deleteExp(id){
+    experiences.removeChild(document.getElementById('experience'+id));
+}
+
+addExperience.addEventListener('click', (e)=>{
+    e.preventDefault();
+    let experience = document.createElement('div');
+    experience.classList.add("experience");
+    experience.id = `experience${counterExp}`;
+    experience.innerHTML = `
+                        <div>
+                            <h4>Experience</h4>
+                            <div onclick="deleteExp(${counterExp++})">
+                                <svg fill="currentColor" viewBox="0 0 64 64" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <title></title>
+                                        <path d="M50.86,13.38H13a1.5,1.5,0,0,1,0-3H50.86a1.5,1.5,0,0,1,0,3Z"></path>
+                                        <path d="M42.4,57.93H21.48a5.5,5.5,0,0,1-5.5-5.5V11.87a1.5,1.5,0,0,1,1.5-1.5H46.4a1.5,1.5,0,0,1,1.5,1.5V52.43A5.51,5.51,0,0,1,42.4,57.93ZM19,13.37V52.43a2.5,2.5,0,0,0,2.5,2.5H42.4a2.5,2.5,0,0,0,2.5-2.5V13.37Z"></path>
+                                        <path d="M40,13.37H23.9a1.5,1.5,0,0,1-1.5-1.5V6.57a1.5,1.5,0,0,1,1.5-1.5H40a1.5,1.5,0,0,1,1.5,1.5v5.3A1.5,1.5,0,0,1,40,13.37Zm-14.58-3H38.48V8.07H25.4Z"></path>
+                                        <path d="M24.94,47.61a1.5,1.5,0,0,1-1.5-1.5V21.46a1.5,1.5,0,0,1,3,0V46.11A1.5,1.5,0,0,1,24.94,47.61Z"></path>
+                                        <path d="M38.94,47.61a1.5,1.5,0,0,1-1.5-1.5V21.46a1.5,1.5,0,0,1,3,0V46.11A1.5,1.5,0,0,1,38.94,47.61Z"></path>
+                                        <path d="M31.94,40.38a1.5,1.5,0,0,1-1.5-1.5V28.7a1.5,1.5,0,1,1,3,0V38.88A1.5,1.5,0,0,1,31.94,40.38Z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title" placeholder="Experience's title">
+                            </div>
+                            <div>
+                                <label for="company">Company</label>
+                                <input type="text" name="company" id="company" placeholder="Company name">
+                            </div>
+                            <div>
+                                <label for="start">Start date</label>
+                                <input type="text" name="start" id="start" placeholder="mm-yyyy">
+                            </div>
+                            <div>
+                                <label for="end">End date</label>
+                                <input type="text" name="end" id="end" placeholder="mm-yyyy">
+                            </div>
+                        </div>
+    `;
+    experiences.appendChild(experience);
+});
+
