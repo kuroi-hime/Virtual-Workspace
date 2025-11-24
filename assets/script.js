@@ -156,7 +156,7 @@ addExperience.addEventListener('click', (e)=>{
 
 function getPhoto(){
     if(urlPhoto.value=='')
-        return "images/Generic avatar.png";
+        return "images/GenericAvatar.png";
     return urlPhoto.value;
 }
 
