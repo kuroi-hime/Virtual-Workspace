@@ -19,6 +19,10 @@ const addExperience = document.getElementById('addExp');
 const experiences = document.getElementById('experiences');
 const saveStaff = document.getElementById('save');
 
+// Form photo
+const urlPhoto = document.getElementById('photo');
+const avatar = document.getElementById('formAvatar');
+
 // App Initialisation
 function StaffTemplate(s){
     return `
@@ -118,3 +122,18 @@ addExperience.addEventListener('click', (e)=>{
     experiences.appendChild(experience);
 });
 
+// photo preview feature
+
+function getPhoto(){
+    if(urlPhoto.value=='')
+        return "images/Generic avatar.png";
+    return urlPhoto.value;
+}
+
+function setPhoto(url){
+    avatar.setAttribute('src', url);
+}
+
+urlPhoto.addEventListener('input', ()=>{
+    setPhoto(getPhoto());
+});
