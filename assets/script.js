@@ -49,6 +49,9 @@ const rooms = document.getElementsByClassName('room');
 // Unassign staff feature variables
 const deleteButtons = document.getElementsByClassName('.X');
 
+// Red empty zones feature variables
+const zonesObligatoires = ['reception', 'security', 'servers', 'archives'];
+
 // App Initialisation
 function StaffTemplate(s){
     return `
@@ -389,6 +392,7 @@ Array.from(rooms).forEach(element => {
             alertBox.style.display = 'inline';
             setTimeout(()=>{alertBox.style.display='none';},2000);
         }
+        setZone(element.id);
         renderListeStaff(staff.filter(s=>!s.assigned));
         naturalBehave(listStaff);
     }));
@@ -400,6 +404,20 @@ function unassignWorker(idEmployee){
     document.getElementById(`worker${idEmployee}`).remove();
     staff[idEmployee].assigned = false;
     // localStorage.setItem('staff', JSON.stringify(staff));
+    setZone(staff[idEmployee].room)
     renderListeStaff(staff.filter(s=>!s.assigned));
     naturalBehave(listStaff);
 }
+
+// Red empty zones feature
+function setZone(id){
+    const currentRoom = document.getElementById(id);
+    if(zonesObligatoires.includes(id)){
+        if(currentRoom.querySelector('.avatarX'))
+            currentRoom.style.setProperty('background-color', 'white');
+        else
+            currentRoom.style.setProperty('background-color', '#f7908fff');
+    }
+}
+
+Array.from(rooms).forEach(room=>setZone(room.id));
