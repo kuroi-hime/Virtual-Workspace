@@ -394,3 +394,12 @@ Array.from(rooms).forEach(element => {
     }));
    });
 });
+
+// Unassign staff feature
+function unassignWorker(idEmployee){
+    document.getElementById(`worker${idEmployee}`).remove();
+    staff[idEmployee].assigned = false;
+    // localStorage.setItem('staff', JSON.stringify(staff));
+    renderListeStaff(staff.filter(s=>!s.assigned));
+    naturalBehave(listStaff);
+}
