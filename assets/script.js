@@ -8,6 +8,11 @@ let alertBox = document.getElementById('alert');
 // Add new worker feature variables
 const staffPlus = document.getElementById('addWorker');
 let maxId = staff.length;
+const fullName = document.getElementById('fullName');
+const role = document.getElementById('role');
+const otherRole = document.getElementById('otherRole');
+const email = document.getElementById('email');
+const mobile = document.getElementById('mobile');
 
 // Form feature variables
 const title = document.getElementById('formTitle');
@@ -136,4 +141,130 @@ function setPhoto(url){
 
 urlPhoto.addEventListener('input', ()=>{
     setPhoto(getPhoto());
+});
+
+function getFullName(){  
+    if(fullName.value=='') throw new Error('Empty name field');
+
+    const re = /^[a-z]'?[a-z]+(\s?[a-z]'?[a-z]+)*$/i;
+    if(!re.test(fullName.value)) throw new Error('Invalid name')
+    
+    return fullName.value.toLowerCase();
+}
+
+function setFullName(name){
+    fullName.value = name;
+}
+
+role.addEventListener('change', ()=>{
+    otherRole.style.display='none';
+    if(role.value=='other'){
+        otherRole.style.display='block';
+    }
+});
+
+function getRole(){
+    if(role.value == '') throw new Error('Empty role field');
+    if(role.value=='other'){
+        if(otherRole.value == '') throw new Error('Empty role field');
+        else
+            return otherRole.value.replace('_', ' ');
+    }
+
+    return role.value.replace('_', ' ');
+}
+
+function setRole(val){
+    role.value = val.replace('_', ' ');
+}
+
+function getEmail(){
+    if(email.value=='') throw new Error('Empty email field');
+
+    let re = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/i;
+    if(!re.test(email.value)) throw new Error('Invalid email');
+
+    return email.value;
+}
+
+function setEmail(val){
+    email.value = val;
+}
+
+function getMobile(){
+    if(mobile.value=='') throw new Error('Empty mobile field');
+
+    let re = /^\+212\d{9}$/;
+    if(!re.test(mobile.value)) throw new Error('Invalid mobile number');
+
+    return mobile.value;
+}
+
+function setMobile(val){
+    mobile.value = val;
+}
+
+function stringToDate(s){
+    const [m, y] = s.split('-');
+    return new Date(Number(y), Number(m)-1);
+}
+
+function getExperience(e){
+    let re = /^[a-z]+(\s[a-z]+)*$/i;
+    const title = e.querySelector('#title').value.toLowerCase();
+    if(title == '') throw new Error('Title field is empty');
+    if(!re.test(title)) throw new Error('Invalid title');
+
+    const company = e.querySelector('#company').value.toLowerCase();
+    if(company == '') throw new Error('Company name field is empty');
+    if(!re.test(company)) throw new Error('Invalid company name');
+
+    let reDate = /^(0[1-9]||1[0-2])\-20(0[0-9]||1[0-9]||2[0-5])$/;
+    const startDate = e.querySelector('#start').value;
+    const endDate = e.querySelector('#end').value;
+    if(startDate == '') throw new Error('Start date is required');
+    if(!reDate.test(startDate)) throw new Error('Invalid start date');
+    if(endDate == '') throw new Error('End date is required');
+    if(!reDate.test(endDate)) throw new Error('Invalid end date');
+    if(stringToDate(startDate)>stringToDate(endDate)) throw new Error ('End date earlier than start date!');
+
+    return {title: title, company: company, startDate: startDate, endDate: endDate}
+}
+
+function getExperiences(){
+    const expers = document.querySelectorAll('.experience');
+    const exps = [];
+    expers.forEach(exp=>{
+        exps.push(getExperience(exp));
+    });
+    return exps;
+}
+
+function getForm(){
+    return {id:maxId++, url:getPhoto(), fullName:getFullName(), role:getRole(), email:getEmail(), mobile:getMobile(), experiences: getExperiences(), assigned:false};
+}
+
+saveStaff.addEventListener('click', (e)=>{
+    e.preventDefault();
+    try{
+        staff.push(getForm());
+        alertBox.innerText = `The new worker is added succesfully`;
+        alertBox.style.backgroundColor = '#f5fee2ff';
+        alertBox.style.border = '1px solid #b9f871ff';
+        alertBox.style.color = '#41b91cff';
+        alertBox.style.display = 'inline';
+        setTimeout(()=>{alertBox.style.display='none';},2000);
+        renderListeStaff(staff.filter(s=>!s.assigned));
+        localStorage.setItem('staff', JSON.stringify(staff));
+        formContainer.style.display='none';
+        document.forms[0].reset();
+        setPhoto(getPhoto());
+    }catch(e){
+        alertBox.style.backgroundColor = '#fee2e2';
+        alertBox.style.border = '1px solid #f87171';
+        alertBox.style.color = '#b91c1c';
+        alertBox.innerText = e.message;
+        alertBox.style.display = 'inline';
+        setTimeout(()=>{alertBox.style.display='none';},2000);
+    }
 });
