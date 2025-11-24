@@ -23,10 +23,31 @@ let counterExp;
 const addExperience = document.getElementById('addExp');
 const experiences = document.getElementById('experiences');
 const saveStaff = document.getElementById('save');
-
 // Form photo
 const urlPhoto = document.getElementById('photo');
 const avatar = document.getElementById('formAvatar');
+
+// logical constraints -> Assign feature variables
+const restrictions = {
+    Manager: [],
+    Receptionist: ['security', 'servers'],
+    IT_Technician: ['reception', 'security'],
+    Security_guard: ['reception', 'servers'],
+    Cleaning: ['archives'],
+    other: ['reception', 'security', 'servers']
+}
+const roomsCapacity = {
+    reception: 2,
+    security: 3,
+    servers: 5,
+    archives: 5,
+    staff: 6,
+    conference: 10,
+}
+const rooms = document.getElementsByClassName('room');
+
+// Unassign staff feature variables
+const deleteButtons = document.getElementsByClassName('.X');
 
 // App Initialisation
 function StaffTemplate(s){
@@ -62,6 +83,7 @@ function renderListeStaff(liste){
 }
 
 renderListeStaff(staff.filter(s=>!s.assigned));
+naturalBehave(listStaff);
 
 // Add staff feature
 staffPlus.addEventListener('click', ()=>{
@@ -143,7 +165,7 @@ urlPhoto.addEventListener('input', ()=>{
     setPhoto(getPhoto());
 });
 
-function getFullName(){  
+function getFullName(){
     if(fullName.value=='') throw new Error('Empty name field');
 
     const re = /^[a-z]'?[a-z]+(\s?[a-z]'?[a-z]+)*$/i;
@@ -241,13 +263,14 @@ function getExperiences(){
 }
 
 function getForm(){
-    return {id:maxId++, url:getPhoto(), fullName:getFullName(), role:getRole(), email:getEmail(), mobile:getMobile(), experiences: getExperiences(), assigned:false};
+    return {id:maxId, url:getPhoto(), fullName:getFullName(), role:getRole(), email:getEmail(), mobile:getMobile(), experiences: getExperiences(), assigned:false};
 }
 
 saveStaff.addEventListener('click', (e)=>{
     e.preventDefault();
     try{
         staff.push(getForm());
+        maxId++;
         alertBox.innerText = `The new worker is added succesfully`;
         alertBox.style.backgroundColor = '#f5fee2ff';
         alertBox.style.border = '1px solid #b9f871ff';
@@ -255,6 +278,7 @@ saveStaff.addEventListener('click', (e)=>{
         alertBox.style.display = 'inline';
         setTimeout(()=>{alertBox.style.display='none';},2000);
         renderListeStaff(staff.filter(s=>!s.assigned));
+        naturalBehave(listStaff);
         localStorage.setItem('staff', JSON.stringify(staff));
         formContainer.style.display='none';
         document.forms[0].reset();
@@ -268,3 +292,70 @@ saveStaff.addEventListener('click', (e)=>{
         setTimeout(()=>{alertBox.style.display='none';},2000);
     }
 });
+
+// Details worker feature
+function closeDetails(){
+    document.querySelector('#details').remove();
+}
+
+function naturalBehave(liste){
+    liste.querySelectorAll('.worker').forEach(worker=>worker.addEventListener('click', ()=>{
+        const currentWorker = staff.filter(s=>s.id==worker.id)[0];
+        
+        const infosWorker = document.createElement('div');
+        infosWorker.classList.add('overlay');
+        infosWorker.id = 'details'
+        infosWorker.innerHTML = `
+            <div class='details'>
+                <svg onclick="closeDetails()" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier"> 
+                        <defs> 
+                            <style>.cls-1{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style> 
+                        </defs> 
+                        <title></title> 
+                        <g id="cross"> 
+                            <line class="cls-1" x1="7" x2="25" y1="7" y2="25"></line> 
+                            <line class="cls-1" x1="7" x2="25" y1="25" y2="7"></line> 
+                        </g> 
+                    </g>
+                </svg>
+                <div class='avatarDetails'>
+                    <img class='avatarImg' src='${currentWorker.url}'>
+                    <p class='avatarName'>${currentWorker.fullName}</p>
+                </div>
+                <div class='Infos'>
+                    <label class='labels'>Role</label>
+                    <p class='values'>${currentWorker.role}</p>
+                    <label class='labels'>Email</label>
+                    <p class='values'>${currentWorker.email}</p>
+                    <label class='labels'>Mobile</label>
+                    <p class='values'>${currentWorker.mobile}</p>
+                </div>
+                <div class='expDetails'>
+                </div>
+            </div>
+        `;
+        if(currentWorker.experiences.length){
+            infosWorker.querySelector('.expDetails').innerHTML = '<h4 class="expLegend">Professional experiences</h4>';
+            const expContainer = document.createElement('div');
+            expContainer.classList.add('expContainer');
+            currentWorker.experiences.forEach(exp=>{
+                const e = document.createElement('div');
+                e.classList.add('expDisp');
+                e.innerHTML = `
+                    <p class='periode'>${exp.startDate} - ${exp.endDate}</p>
+                    <p>${exp.title}</p>
+                    <p>${exp.company}</p>
+                `;
+                expContainer.appendChild(e);
+            });
+            infosWorker.querySelector('.expDetails').appendChild(expContainer);
+        }
+        
+        infosWorker.style.display = 'flex';
+        document.getElementsByTagName('main')[0].appendChild(infosWorker);
+    }));
+}
+
